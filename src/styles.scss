@@ -2,10 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito+Sans:wght@400&display=swap');
 
 $text-on-primary-color: #fff;
-$primary-color: #8b999d;
+$primary-color: #525e4f;
 
 @mixin mediaLg {
-  @media (min-width: 768px) {
+  @media (min-width: 512px) {
     @content;
   }
 }
@@ -54,13 +54,13 @@ header, main, footer {
 
     // white overlay effect
     background: linear-gradient(
-      hsla(0,0%,100%,.3),
-      hsla(0,0%,100%,.3)),
+      hsla(0,0%,60%,.5),
+      hsla(0,0%,60%,.5)),
       url(https://www.zamecnictvi-sojka.cz/public/gallery/P6140009.jpg)
     ;
 
     // blur effect
-    filter: blur(1.5px);
+    filter: blur(2.5px);
 
     background-size: cover;
     background-position: center center;
@@ -83,28 +83,55 @@ header, main, footer {
 
     margin: 0;        
     font-size: 6.5rem;
+    letter-spacing: 0.1rem;
     //text-shadow: 2px 2px 5px hsla(0,0%,0%,.2);
           
     font-family: 'Abril Fatface', cursive;
     
     @include mediaLg {
-      font-size: 8rem;
+      font-size: 9rem;
       margin-bottom: 0.3rem; 
     }
   }
 
   .hero-desc {
+    margin-top:0;    
     text-align: center;    
-    font-size: 0.9rem;
+    font-size: 1rem;
     letter-spacing: 0.03rem;
     word-spacing: 0.2rem;
     text-transform: uppercase;
     font-weight: 100;
     margin-bottom: 3.5rem;
+    color: $text-on-primary-color;
 
-    @include mediaLg {
+    @include mediaLg {      
       margin-bottom: 1rem;
-      font-size: 1rem; 
+      word-spacing: 0.5rem;       
+    }
+
+    span:nth-child(2) {
+      &::after {
+        content: " \25AB\ \A";
+        white-space: pre;
+
+        @include mediaLg {
+          content: "";
+          white-space: normal;
+        }
+      }
+    }
+
+    span:last-child {
+      &::after {
+        content: " \25AB";        
+      }
+    }
+
+    span {
+      &::before {
+        content: " \25AB\ ";
+      }      
     }
   }
 
@@ -119,9 +146,12 @@ header, main, footer {
     border: 1px solid $text-on-primary-color;
     border-radius: 0.3rem;
     transition: all 0.5s;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    background-color: transparentize($text-on-primary-color,0.9);
 
-    &:hover {
-      background-color: transparentize($primary-color,0.2);
+    &:hover {      
+      background-color: transparentize($primary-color,0.5);
     }
   }
 
