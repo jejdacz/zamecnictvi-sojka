@@ -2,13 +2,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito+Sans:wght@400&display=swap');
 
 $text-on-primary-color: #fff;
-$primary-color: #525e4f;
+$text-on-light-color: rgb(40, 40, 40);
+$primary-color-dark: #525e4f;
+$primary-color-light: #b3d2ac;
+$background-light: #fff;
+$background-mid: #eee;
+$background-dark: rgb(30, 50, 60);
 
 @mixin mediaLg {
   @media (min-width: 512px) {
     @content;
   }
 }
+
+@mixin mediaXl {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+
+@mixin separator {
+  content: "\25AB";
+  margin: 0 0.5rem;
+}
+
 
 * {
   box-sizing: border-box;
@@ -54,13 +71,13 @@ header, main, footer {
 
     // white overlay effect
     background: linear-gradient(
-      hsla(0,0%,60%,.5),
-      hsla(0,0%,60%,.5)),
+      hsla(0,0%,100%,.2),
+      hsla(0,0%,100%,.2)),
       url(https://www.zamecnictvi-sojka.cz/public/gallery/P6140009.jpg)
     ;
 
     // blur effect
-    filter: blur(2.5px);
+    //filter: blur(1px);
 
     background-size: cover;
     background-position: center center;
@@ -82,11 +99,13 @@ header, main, footer {
     flex-direction: column-reverse;
 
     margin: 0;        
-    font-size: 6.5rem;
+    font-size: 6.9rem;
     letter-spacing: 0.1rem;
     //text-shadow: 2px 2px 5px hsla(0,0%,0%,.2);
           
     font-family: 'Abril Fatface', cursive;
+
+    user-select: none;
     
     @include mediaLg {
       font-size: 9rem;
@@ -95,43 +114,62 @@ header, main, footer {
   }
 
   .hero-desc {
-    margin-top:0;    
-    text-align: center;    
-    font-size: 1rem;
-    letter-spacing: 0.03rem;
-    word-spacing: 0.2rem;
-    text-transform: uppercase;
-    font-weight: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
     margin-bottom: 3.5rem;
-    color: $text-on-primary-color;
-
+        
     @include mediaLg {      
       margin-bottom: 1rem;
-      word-spacing: 0.5rem;       
+      flex-direction: row;             
     }
 
-    span:nth-child(2) {
-      &::after {
-        content: " \25AB\ \A";
-        white-space: pre;
+    .row {
+      display:flex;
+
+      @include mediaLg {      
+        display: flex;             
+      }
+      
+      h2 {
+        display: block;
+        margin:0;    
+        text-align: center;    
+        font-size: 1rem;
+        letter-spacing: 0.03rem;
+        word-spacing: 0.2rem;
+        text-transform: uppercase;
+        font-weight: 100;      
+        color: $text-on-primary-color;
+        user-select: none;
 
         @include mediaLg {
-          content: "";
-          white-space: normal;
+          word-spacing: 0.5rem;       
+        }      
+
+        &::before {        
+          @include separator;                       
+        }
+        
+        &:last-child {
+          &::after {
+            @include separator;
+
+            @include mediaLg {      
+              content: "";
+              margin:0;             
+            }          
+          }        
+        }      
+      }
+
+      &:last-child {
+        h2:last-child{
+          &::after {
+            @include separator;                      
+          }        
         }
       }
-    }
-
-    span:last-child {
-      &::after {
-        content: " \25AB";        
-      }
-    }
-
-    span {
-      &::before {
-        content: " \25AB\ ";
-      }      
     }
   }
 
@@ -146,12 +184,12 @@ header, main, footer {
     border: 1px solid $text-on-primary-color;
     border-radius: 0.3rem;
     transition: all 0.5s;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     background-color: transparentize($text-on-primary-color,0.9);
 
     &:hover {      
-      background-color: transparentize($primary-color,0.5);
+      background-color: transparentize($primary-color-dark,0.5);
     }
   }
 
@@ -161,4 +199,141 @@ header, main, footer {
     
 }
 
+.section-container {
+  &.padding,.padding {
+    padding: 7rem 2rem;
+    
+    @include mediaLg{
+      padding: 7rem 3rem;
+    }
 
+  }
+
+  &.bg-light {
+    background-color:$background-light;
+    color: $text-on-light-color;
+  }
+
+  &.bg-mid {
+    background-color:$background-mid;
+    color: $text-on-light-color;    
+  }
+
+  .section-content {
+    @include mediaLg{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    @include mediaXl{
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+    }
+  }
+
+  &>h1, .section-heading {
+    font-family: 'Abril Fatface', cursive;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 1em;
+    margin: 0;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 70px;
+      height: 3px;
+      background-color: $primary-color-light;
+      margin: 2rem auto;
+    }
+
+    &.heading-left {
+      text-align: left;
+      &::after {
+        margin-left:0;
+      }
+
+    }
+  }
+
+  .sub-section {
+    padding: 1rem 0rem;
+    max-width: 30rem;
+
+    @include mediaLg {
+      margin: 0 4rem;
+    }
+    
+    &>h1 {
+      font-family: 'Abril Fatface', cursive;
+      font-size: 2rem;
+      text-align: center;
+      line-height: 1em;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: square;
+      padding-left: 1rem;
+      color: $primary-color-dark;
+    }
+  }
+
+  p {
+    color: $primary-color-dark;
+  }
+}
+
+footer {
+  padding: 4rem 2rem;
+  background-color: $background-dark;
+  color: $text-on-primary-color;
+
+  @include mediaLg{
+    display: flex;
+    justify-content: center;
+    flex-flow: row-reverse;    
+  }
+
+  address {
+    font-style: normal;
+    margin-bottom: 1rem;    
+  }
+
+  .contacts {
+    @include mediaLg{
+      margin-right: 7rem;
+    }
+  }
+
+  span {
+    display: block;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: $text-on-primary-color;
+  }
+}
+
+.two-cols {
+  @include mediaXl{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.left-side {
+  display: none;
+  background-image: url(https://www.zamecnictvi-sojka.cz/public/gallery/P6140032.jpg);
+  background-size: cover;
+  @include mediaLg{
+    display: block;    
+  }
+
+}
