@@ -1,16 +1,20 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css";
+//@import "https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css";
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito+Sans:wght@400&display=swap');
 
+// layout first
+// then fonts
+// solve colors last
 $text-on-primary-color: #fff;
-$text-on-light-color: rgb(40, 40, 40);
-$primary-color-dark: #525e4f;
-$primary-color-light: #b3d2ac;
+$text-on-light-color: rgb(15, 15, 15);
+$primary-color-dark: rgb(0, 94, 138);
+$primary-color-light: rgb(0, 182, 214);
 $background-light: #fff;
 $background-mid: #eee;
 $background-dark: rgb(30, 50, 60);
 
 @mixin mediaLg {
-  @media (min-width: 512px) {
+  @media (min-width: 640px) {
     @content;
   }
 }
@@ -33,7 +37,7 @@ $background-dark: rgb(30, 50, 60);
 
 body {  
   font-family: "Nunito Sans", sans-serif;
-  background-color: black;
+  //background-color: black;
   line-height: 1.42857;
   overflow-x: hidden;
 }
@@ -42,278 +46,224 @@ header, main, footer {
   display: block;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 15px;
-  width: 600px;
-}
+header {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 7rem 0;
+  background-size: cover;  
+  background-color: rgb(0, 255, 21);
+  background: linear-gradient(170deg,rgb(0, 182, 70),$primary-color-light);
+  color: $text-on-primary-color;  
 
-// next element needs position:relative to stack on top of overlay !!!
-
-.overlay {
-  background-color: hsla(0,0%,100%,.2);
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
-.hero-container {
-  position: relative;    
-
-  // background image standalone element - for filter application
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-
-    // white overlay effect
-    background: linear-gradient(
-      hsla(0,0%,100%,.2),
-      hsla(0,0%,100%,.2)),
-      url(https://www.zamecnictvi-sojka.cz/public/gallery/P6140009.jpg)
-    ;
-
-    // blur effect
-    //filter: blur(1px);
-
-    background-size: cover;
-    background-position: center center;
-  }
-
-  .hero-inside {  
-    position: relative;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    padding: 7rem .8rem;
-    color: $text-on-primary-color;
-  }
-
-  .hero-title {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    flex-direction: column-reverse;
-
-    margin: 0;        
-    font-size: 6.9rem;
-    letter-spacing: 0.1rem;
-    //text-shadow: 2px 2px 5px hsla(0,0%,0%,.2);
-          
+  .header-heading {
     font-family: 'Abril Fatface', cursive;
-
-    user-select: none;
+    font-size: 7.5rem;
+    margin:0;
     
-    @include mediaLg {
-      font-size: 9rem;
-      margin-bottom: 0.3rem; 
+    @include mediaLg{
+      font-size: 9.5rem;
     }
   }
 
-  .hero-desc {
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
-    margin-bottom: 3.5rem;
-        
-    @include mediaLg {      
-      margin-bottom: 1rem;
-      flex-direction: row;             
-    }
+  h2 {
+    margin:0;
+    font-size: .7rem;
+    letter-spacing: 0.03rem;
+    word-spacing: 0.2rem;
+    text-transform: uppercase;
+    font-weight: 100;
 
-    .row {
-      display:flex;
-
-      @include mediaLg {      
-        display: flex;             
-      }
-      
-      h2 {
-        display: block;
-        margin:0;    
-        text-align: center;    
-        font-size: 1rem;
-        letter-spacing: 0.03rem;
-        word-spacing: 0.2rem;
-        text-transform: uppercase;
-        font-weight: 100;      
-        color: $text-on-primary-color;
-        user-select: none;
-
-        @include mediaLg {
-          word-spacing: 0.5rem;       
-        }      
-
-        &::before {        
-          @include separator;                       
-        }
-        
-        &:last-child {
-          &::after {
-            @include separator;
-
-            @include mediaLg {      
-              content: "";
-              margin:0;             
-            }          
-          }        
-        }      
-      }
-
-      &:last-child {
-        h2:last-child{
-          &::after {
-            @include separator;                      
-          }        
-        }
-      }
+    @include mediaLg{
+      font-size: 1rem;
     }
   }
 
-  .hero-button {
+  .sub-heading-container {
+    display: flex;    
+
+    h2:not(:last-child):after {
+      @include separator;
+    }
+  }
+
+  .secondary-heading {    
+    margin-bottom: 1rem;        
+  }
+  
+
+  .header-button {
     display: inline-block;
-    padding: 0.7rem 1.4rem;
+    padding: 1rem 1.2rem;
     margin-bottom: 0.2rem;
     text-decoration: none;
     color: inherit;
     font-size: 1.7rem;
-    font-weight: 800;
-    border: 1px solid $text-on-primary-color;
+    font-weight: 200;
+    border: 2px solid;
     border-radius: 0.3rem;
     transition: all 0.5s;
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
-    background-color: transparentize($text-on-primary-color,0.9);
+    background-color: inherit;
 
     &:hover {      
-      background-color: transparentize($primary-color-dark,0.5);
+      background-color: transparentize(black,0.8);
     }
   }
 
-  .hero-phone {
-    font-size: 0.8rem;
+  .header-button-desc {
+    display: flex;
+    flex-flow: column;    
+    font-size: 0.8rem;    
   }
-    
 }
 
-.section-container {
-  &.padding,.padding {
-    padding: 7rem 2rem;
-    
+section {
+  &.section-padding {
+    padding: 5rem 1rem;
+
     @include mediaLg{
-      padding: 7rem 3rem;
+      padding: 5rem 3rem;
     }
-
-  }
-
-  &.bg-light {
-    background-color:$background-light;
-    color: $text-on-light-color;
   }
 
   &.bg-mid {
-    background-color:$background-mid;
-    color: $text-on-light-color;    
+    background-color: $background-mid;
   }
 
-  .section-content {
-    @include mediaLg{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    @include mediaXl{
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: center;
-    }
-  }
+  color: lighten($text-on-light-color,30);
 
-  &>h1, .section-heading {
+  strong {
+   color: $text-on-light-color;    
+  }
+  
+  .section-heading {
+    margin:0;
     font-family: 'Abril Fatface', cursive;
     font-size: 3rem;
-    text-align: center;
-    line-height: 1em;
-    margin: 0;
-
+    color: $text-on-light-color;
+    
     &::after {
-      content: "";
+      content:"";
       display: block;
-      width: 70px;
+      width: 60px;
       height: 3px;
       background-color: $primary-color-light;
-      margin: 2rem auto;
+      margin: 1rem auto 2rem auto;
     }
-
-    &.heading-left {
-      text-align: left;
+  
+    &.center {
+      text-align: center;
+    }
+  
+    &.left {
       &::after {
         margin-left:0;
       }
-
     }
-  }
-
-  .sub-section {
-    padding: 1rem 0rem;
-    max-width: 30rem;
-
-    @include mediaLg {
-      margin: 0 4rem;
-    }
-    
-    &>h1 {
-      font-family: 'Abril Fatface', cursive;
-      font-size: 2rem;
-      text-align: center;
-      line-height: 1em;
-    }
-
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: square;
-      padding-left: 1rem;
-      color: $primary-color-dark;
-    }
-  }
-
-  p {
-    color: $primary-color-dark;
   }
 }
 
-footer {
-  padding: 4rem 2rem;
-  background-color: $background-dark;
-  color: $text-on-primary-color;
+.card-container {
+  display: flex;
+  flex-wrap: wrap;  
+  justify-content: center;
+  //max-width: 45rem;
+
+  /*** grid solution ***/
+  //max-width: 45rem;
+  //display: grid;
+  //grid-template-columns: repeat( auto-fit, minmax(20rem,1fr));
+  //justify-items: center;
+  /*** grid solution end***/
+
+  margin: 0 auto;
+}
+
+.card {
+  padding: 1.5rem 1rem;
+
+  /*** grid solution ***/
+  //width: 20rem;
+  /*** grid solution end***/
+
+  min-width: 20rem; // minimum width to be shrinked 
+  width: 20rem; // different widths grow same way
+  flex-grow: 1; // let them grow to max-width
+  max-width: 22rem; // grow limit
+  
+    
+  @include mediaLg{    
+    padding: 1.5rem;
+  }
+
+  .card-heading {
+    text-align: center;
+    font-family: 'Abril Fatface', cursive;
+    font-size: 2rem;
+    color: $text-on-light-color;
+    margin: 0 0 2rem 0;
+  }
+
+  .card-list {
+    list-style-type: square;
+    margin: 0;
+    padding-left: 1rem;    
+  }
+
+}
+
+.two-cols {
+  display: grid;
+  grid-template-columns: 1rem auto;
 
   @include mediaLg{
+    grid-template-columns: 3rem auto;
+  }
+
+  @include mediaXl{
+    grid-template-columns: 33% auto;
+  }
+}
+
+.section-bg-image {
+  background-color: $primary-color-light;
+}
+
+footer {
+  
+  background-color: darken($primary-color-dark,10);
+  color:$text-on-primary-color;
+
+  .footer-container {
+    padding: 2rem 1rem;
     display: flex;
-    justify-content: center;
-    flex-flow: row-reverse;    
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    max-width: 70rem;
+    margin: 0 auto;
+
+    @include mediaLg{    
+      padding: 3rem 5rem;
+    }
+  }
+
+
+  .footer-heading {
+    margin-top: 0; 
+    margin-bottom: 1rem;
   }
 
   address {
     font-style: normal;
-    margin-bottom: 1rem;    
   }
 
-  .contacts {
-    @include mediaLg{
-      margin-right: 7rem;
-    }
+  .address-container, .contacts {
+    padding: 1rem 1rem;
   }
-
-  span {
-    display: block;
-  }
-
+  
   a {
     display: block;
     text-decoration: none;
@@ -321,19 +271,3 @@ footer {
   }
 }
 
-.two-cols {
-  @include mediaXl{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.left-side {
-  display: none;
-  background-image: url(https://www.zamecnictvi-sojka.cz/public/gallery/P6140032.jpg);
-  background-size: cover;
-  @include mediaLg{
-    display: block;    
-  }
-
-}
